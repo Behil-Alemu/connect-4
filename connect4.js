@@ -15,7 +15,7 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 // width is x 
 // height is y 
-// it is looping though height 6 times and push { length: WIDTH } which is turned in to an array but where did the { length: WIDTH } come from. it that not used to get value from an object? 
+// it is looping though height 6 times and push { length: WIDTH } which is turned in to an array but where did the { length: WIDTH } come from. is that not used to get value from an object? 
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
@@ -52,7 +52,8 @@ function makeHtmlBoard() {
   htmlBoard.append(top);
 
   // until y is 6 it will loop thought HEIGHT (which is 6 right now) and creates 6 different tr. then for each tr x will loop thought 7 times and create a td. cell is attached to the row. <tr > (7x from 0 to 6)<td id = y-x>  </td> </tr>. 
-  // TODO: add comment for this code. cell.setAttribute("id", `${y}-${x}`); is it setting the td id to y and x ? what is the value of y and x right here ?
+  // TODO: add comment for this code. 
+  //cell.setAttribute("id", `${y}-${x}`); is it setting the td  to y and x ? what is the value of y and x right here ?
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
@@ -67,14 +68,16 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x (WIDTH td), return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0. How do I go about it ?
+  // TODO: write the real version of this, rather than always returning 0. 
+  //How do I go about it ?
   return 0;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell, accepting y and x, thought y and x need to be attached to the td so append the div to a td. how do i know which td to append to ?
+  // TODO: make a div and insert into correct table cell, accepting y and x, thought y and x need to be attached to the td, so append the div to a td. 
+  // how do i know which td to append to ?
   const cellTaken = document.createElement('div')
   cellTaken.classList.add('piece');
   cellTaken.classList.add(`p${currPlayer}`);
@@ -104,7 +107,7 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  // board[y][x] = currPlayer; 
+  // board[y][x] = currPlayer; how can this = to currPlayer ? from the array board get the y and x 
   placeInTable(y, x);
 
   // check for win
