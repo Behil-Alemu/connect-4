@@ -70,7 +70,13 @@ function makeHtmlBoard() {
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0. 
   //How do I go about it ?
-  return 0;
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+    if (!board[y][x]) {
+      return y;
+    }
+  }
+  return null;
+  // return 0;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -81,6 +87,10 @@ function placeInTable(y, x) {
   const cellTaken = document.createElement('div')
   cellTaken.classList.add('piece');
   cellTaken.classList.add(`p${currPlayer}`);
+  cellTaken.style.top = -50 * (y + 2);
+
+  const spot = document.getElementById(`${y}-${x}`);
+  spot.append(piece);
 
 }
 
@@ -107,6 +117,7 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+
   // board[y][x] = currPlayer; how can this = to currPlayer ? from the array board get the y and x 
   placeInTable(y, x);
 
@@ -117,10 +128,12 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame. .every returns a Boolean value
-
+ if (board.every(row => row.every(cell => cell))) {
+    return endGame('Tie!');
+  }
   // switch players
   currPlayer = currPlayer === 1 ? 2 : 1;
-  // if the current player is 1 the make it player 2 if not then make it player 1. 
+  // if the current player is 1 then make it player 2 if not then make it player 1. 
   // TODO: switch currPlayer 1 <-> 2
 }
 
