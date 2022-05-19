@@ -15,7 +15,7 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 // width is x 
 // height is y 
-// it is looping though height 6 times and push { length: WIDTH } which is turned in to an array but where did the { length: WIDTH } come from. is that not used to get value from an object? 
+// it is looping though height 6 times and push { length: WIDTH } which is turned in to an array but where did the { length: WIDTH } come from. is that not used to get value from an object? [[l,l,l,l,l,l,l],[],[],[],[],[]]
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
@@ -24,6 +24,7 @@ function makeBoard() {
   }
   
 }
+
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 //<table id="board">
@@ -34,10 +35,10 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-  const htmlBoard = document.getElementById('board')
+  const board = document.getElementById('board')
 
   // TODO: add comment for this code. we will create a table row element that has the id "column-top". Next we add an EventListener that will listen to a click which will run the function "handleClick" will be down there. 
-  let top = document.createElement("tr");
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
@@ -48,20 +49,21 @@ function makeHtmlBoard() {
     let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
-  }
-  htmlBoard.append(top);
+  } 
+  board.append(top);
 
   // until y is 6 it will loop thought HEIGHT (which is 6 right now) and creates 6 different tr. then for each tr x will loop thought 7 times and create a td. cell is attached to the row. <tr > (7x from 0 to 6)<td id = y-x>  </td> </tr>. 
   // TODO: add comment for this code. 
   //cell.setAttribute("id", `${y}-${x}`); is it setting the td  to y and x ? what is the value of y and x right here ?
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
+
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
     }
-    htmlBoard.append(row);
+    board.append(row);
   }
 }
 
@@ -90,7 +92,7 @@ function placeInTable(y, x) {
   cellTaken.style.top = -50 * (y + 2);
 
   const spot = document.getElementById(`${y}-${x}`);
-  spot.append(piece);
+  spot.append(cellTaken);
 
 }
 
@@ -106,11 +108,11 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  let x = +evt.target.id;
+  const x = +evt.target.id;
   // what does that plus do ?
 
   // get next spot in column (if none, ignore click)
-  let y = findSpotForCol(x);
+  const y = findSpotForCol(x);
   if (y === null) {
     return;
   }
@@ -118,7 +120,8 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
 
-  // board[y][x] = currPlayer; how can this = to currPlayer ? from the array board get the y and x 
+  board[y][x] = currPlayer;
+  // how can this = to currPlayer ? from the array board get the y and x 
   placeInTable(y, x);
 
   // check for win
